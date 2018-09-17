@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Readit</title>
+    <link rel="stylesheet" href="../bower_components/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../bower_components/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+    <!-- create a panel -->
+    <div class="panel">
+        <!-- pannel's heading -->
+        <div class="panel-heading">
+            <div class="control is-grouped ">
+                <!-- + button icon,  -->
+                <p class="control">
+                    <!-- .open-add-modal -->
+                    <a class="button is-primary open-add-modal">
+                        <span class="icon is-small">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                    </a>
+                </p>
+                <!-- input text and search icon right -->
+                <p class="control is-expanded has-icon has-icon-right">
+                    <!-- #search -->
+                    <input type="text" class="input" id="search">
+                    <span class="icon is-small">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </p>
+                <!-- end of grouped controls with +, input and search -->
+            </div>
+            <!-- end of pannel heading -->
+        </div>
+        <!-- #read-list -->
+        <div id="read-list" class="empty">
+            <!-- #no-item were items should be added -->
+            <p id="no-items" class="has-text-centered">No Items</p>
+        </div>
+        <!-- end of panel -->
+    </div>
+    <!-- MODAL -->
+    <!-- #add-modal -->
+    <div id="add-modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <!-- Input text field -->
+            <p class="control has-icon has-icon-right">
+                <!-- #item-input -->
+                <input type="url" class="input is-medium" id="item-input" placeholder="Enter URL" autofocus>
+                <span class="icon">
+                    <i class="fas fa-globe"></i>
+                </span>
+            </p>
+            <div class="control is-grouped">
+                <!-- Add button -->
+                <p class="control">
+                    <!-- #add-button -->
+                    <a class="button is-primary" id="add-button">
+                        <span class="icon is-small">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        <span><strong>Add Item</strong></span>
+                    </a>
+                </p>
+                <!-- Cancel button -->
+                <p class="control">
+                    <!-- .close-add-modal -->
+                    <a class="button close-add-modal">Cancel</a>
+                </p>
+            </div>
+            <!-- end of modal content -->
+        </div>
+        <!-- end of modal -->
+    </div>
+    <script>
+        // Jquery
+        $ = require('jquery')
+        // Main app script
+        require('./app')
+    </script>
+</body>
+
+</html>

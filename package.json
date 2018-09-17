@@ -1,0 +1,41 @@
+{
+  "name": "Readit",
+  "version": "1.0.0",
+  "description": "Master Electron Course Project",
+  "main": "main.js",
+  "author": "Onyebuchukwu Okafor Philip",
+  "homepage": "https://stackacademy.tv/course/master-electron",
+  "scripts": {
+    "start": "electron .",
+    "mac": "electron-build -m",
+    "win": "electron-builder -w",
+    "build": "electron-builder -mwl",
+    "make-cert": "electron-builder create-self-signed-cert -p stackacademy"
+  },
+  "build": {
+    "appId": "com.stackacademy.readit",
+    "directories": {
+      "buildResources": "."
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg"
+    },
+    "win": {
+      "certificateFile": "private/stackacademy.pfx",
+      "verifyUpdateCodeSignature": false,
+      "publisherName": "stackacademy"
+    },
+    "linux": {
+      "category": "Network"
+    }
+  },
+  "dependencies": {
+    "bower": "^1.8.4",
+    "jquery": "^3.3.1",
+    "query-string": "^6.1.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^20.28.4"
+  }
+}

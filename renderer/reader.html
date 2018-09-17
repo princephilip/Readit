@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../bower_components/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../bower_components/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="./main.css">
+    <style media="screen">
+        html,
+        body,
+        webview {
+            height: 100%
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- add a spinner to display while the page is loading -->
+    <section id="loader" class="hero is-fullheight has-text-centered">
+        <div class="hero-body">
+            <div class="container">
+
+                <div class="busy">
+                    <h1 class="title">
+                        <span class="icon is-large">
+                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                        </span>
+                    </h1>
+                </div>
+
+                <div class="failed is-hidden">
+                    <h1 class="title">Failed to Load</h1>
+                    <h2 class="subtitle">Please check your Network Connection</h2>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Delete Button -->
+    <!-- .mark-read -->
+    <a id="mark-read" class="is-hidden">
+        <div class="block">
+            <!-- .tag -->
+            <div class="tag is-large is-primary">
+                <i class="fa fa-check fa-inverted">
+                </i>&nbsp; Read
+            </div>
+        </div>
+    </a>
+    <!-- we cannot leave the src empty because it will not load. and since we do not have any src yet -->
+    <!-- we load with the windows defaul about:blank -->
+    <webview src="about:blank"></webview>
+
+    <script>
+        // load jquery
+        $ = require('jquery')
+        // get the query-string module
+        const queryString = require('query-string')
+
+        // parse query string value
+        const queryParams = queryString.parse(location.search)
+
+        // Get item index for 
+        let itemIndex = queryParams.itemIndex
+
+        // get the query string url
+        let url = decodeURIComponent(queryParams.url)
+
+        // at once webview is ready, we load remote content. if not onece, it will continue looping loading content when dom is ready
+        // even when content is available
+        $('webview').one('dom-ready', (e) => {
+
+            // Load url content into webview
+            e.currentTarget.loadURL(url)
+        }).one('did-finish-load', () => {
+
+            // cause the loader to fade out
+            $('#loader').fadeOut(100)
+            // show read button
+            $('#mark-read').removeClass('is-hidden')
+            // handle failed load
+        }).on('did-fail-load', () => {
+
+            // hide the spinner
+            $('#mark-read').addClass('is-hidden')
+            $('#loader').fadeIn(100)
+            $('.busy').addClass('is-hidden')
+            $('.failed').removeClass('is-hidden')
+
+        })
+
+        // handle mark-read click (delete)
+        $('#mark-read').click(() => {
+            // parent window
+            // with eval() we can access the parent functions but its
+            // unsafe for browers but okay for desktop apps
+            window.opener.eval(`deleteItem(${itemIndex})`) //eval evaluates to string
+            window.close()
+        })
+    </script>
+</body>
+
+</html>
